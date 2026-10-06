@@ -2,34 +2,20 @@ package com.example.youtube1;
 
 public class YouTubeService {
 
-    // Constructeur privé pour empêcher l'instanciation directe
+    // 1. Instance unique créée dès le chargement de la classe
+    private static final YouTubeService INSTANCE = new YouTubeService();
+
+    // 2. Constructeur privé pour interdire le "new"
     private YouTubeService() {
-        // Protection contre la réflexion (Reflection API)
-        if (Holder.INSTANCE != null) {
-            throw new IllegalStateException("Le Singleton est déjà instancié.");
-        }
     }
 
-    // Classe interne statique chargée uniquement lors de l'appel à getInstance()
-    private static class Holder {
-        private static final YouTubeService INSTANCE = new YouTubeService();
-    }
-
-    // Point d'accès global au Singleton
+    // 3. Méthode publique pour récupérer l'instance
     public static YouTubeService getInstance() {
-        return Holder.INSTANCE;
+        return INSTANCE;
     }
 
-    // Méthode métier exemple : recherche de vidéo
+    // Méthode métier basique
     public String searchVideo(String query) {
-        if (query == null || query.trim().isEmpty()) {
-            throw new IllegalArgumentException("La recherche ne peut pas être vide.");
-        }
         return "Résultat pour : " + query;
-    }
-
-    // Méthode métier exemple : récupération de statut
-    public boolean isConnected() {
-        return true;
     }
 }
